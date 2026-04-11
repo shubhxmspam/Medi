@@ -17,6 +17,11 @@ public class DatabaseConnectionManager {
     }
 
     public static Connection getConnection() throws SQLException {
+        try {
+            loadProperties();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return DriverManager.getConnection(
                 properties.getProperty("spring.datasource.url"),
                 properties.getProperty("spring.datasource.username"),

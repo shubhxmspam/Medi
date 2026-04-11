@@ -3,25 +3,26 @@ package com.edutech.progressive.service;
 import com.edutech.progressive.dto.PatientDTO;
 import com.edutech.progressive.entity.Patient;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface PatientService {
 
-    List<Patient> getAllPatients();
+    List<Patient> getAllPatients() throws SQLException;
 
-    Integer addPatient(Patient patient);
+    Integer addPatient(Patient patient) throws SQLException;
 
-    List<Patient> getAllPatientSortedByName();
+    List<Patient> getAllPatientSortedByName() throws SQLException;
 
     default void emptyArrayList() {
     }
 
     //Do not implement these methods in PatientServiceImplArraylist.java class
-    default void updatePatient(Patient patient) {}
+    default void updatePatient(Patient patient) throws SQLException {}
 
-    default void deletePatient(int patientId) {}
+    default void deletePatient(int patientId) throws SQLException {}
 
-    default Patient getPatientById(int patientId) {
+    default Patient getPatientById(int patientId) throws SQLException {
         return null;
     }
 
