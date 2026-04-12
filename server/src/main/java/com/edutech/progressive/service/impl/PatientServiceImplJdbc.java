@@ -1,6 +1,5 @@
 package com.edutech.progressive.service.impl;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,40 +17,39 @@ public class PatientServiceImplJdbc implements PatientService {
     }
 
     @Override
-    public List<Patient> getAllPatients() throws SQLException {
+    public List<Patient> getAllPatients() throws Exception {
 
         return patientDAO.getAllPatients();
 
     }
 
     @Override
-    public Integer addPatient(Patient patient) throws SQLException {
+    public Integer addPatient(Patient patient) throws Exception {
 
         return patientDAO.addPatient(patient);
-        
 
     }
 
     @Override
-    public List<Patient> getAllPatientSortedByName() throws SQLException {
+    public List<Patient> getAllPatientSortedByName() throws Exception {
         List<Patient> list = new ArrayList<>(patientDAO.getAllPatients());
         Collections.sort(list);
         return list;
 
     }
 
-    public void updatePatient(Patient patient) throws SQLException {
+    public void updatePatient(Patient patient) throws Exception {
         patientDAO.updatePatient(patient);
 
     }
 
-    public void deletePatient(int patientId) throws SQLException {
+    public void deletePatient(int patientId) throws Exception {
 
         patientDAO.deletePatient(patientId);
 
     }
 
-    public Patient getPatientById(int patientId) throws SQLException {
+    public Patient getPatientById(int patientId) throws Exception {
 
         return patientDAO.getPatientById(patientId);
 

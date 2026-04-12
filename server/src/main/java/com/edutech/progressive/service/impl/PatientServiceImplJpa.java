@@ -1,5 +1,32 @@
 package com.edutech.progressive.service.impl;
 
-public class PatientServiceImplJpa  {
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.edutech.progressive.entity.Patient;
+import com.edutech.progressive.service.PatientService;
+@Service
+public class PatientServiceImplJpa implements PatientService {
+
+    @Override
+    public List<Patient> getAllPatients() throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAllPatients'");
+    }
+
+    @Override
+    public Integer addPatient(Patient patient) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addPatient'");
+    }
+
+    @Override
+    public List<Patient> getAllPatientSortedByName() throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAllPatientSortedByName'");
+    }
+
+    
 
 }
