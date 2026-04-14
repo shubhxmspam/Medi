@@ -1,5 +1,6 @@
 package com.edutech.progressive.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.context.annotation.Primary;
@@ -30,7 +31,9 @@ public class PatientServiceImplJpa implements PatientService {
 
     @Override
     public List<Patient> getAllPatientSortedByName() throws Exception {
-        return pr.findAllPatientSortedByName();
+        List<Patient> list = pr.findAll();
+        Collections.sort(list);
+        return list;
     }
 
     public void updatePatient(Patient patient) throws Exception {
@@ -45,7 +48,7 @@ public class PatientServiceImplJpa implements PatientService {
 
     public Patient getPatientById(int patientId) throws Exception {
         if(pr.findById(patientId).isPresent()){
-            return pr.findById(patientId).get();
+            return pr.findByPatientId(patientId).get();
         }
         return null;
     }

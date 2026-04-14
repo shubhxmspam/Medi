@@ -54,6 +54,7 @@ public class PatientController {
     @PutMapping("/{patientID}")
     public ResponseEntity<Void> updatePatient(@PathVariable("patientID") int patientId, @RequestBody Patient patient) {
         try {
+            if(ps.getPatientById(patientId)!=null)
             ps.updatePatient(patient);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {

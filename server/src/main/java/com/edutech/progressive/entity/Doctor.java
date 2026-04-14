@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Doctor implements Comparable<Doctor> {
@@ -14,6 +16,10 @@ public class Doctor implements Comparable<Doctor> {
     private String contactNumber;
     private String email;
     private int yearsOfExperience;
+
+    @ManyToOne
+    @JoinColumn(name = "clinic_id")
+    Clinic clinic;
 
     public Doctor() {
     }

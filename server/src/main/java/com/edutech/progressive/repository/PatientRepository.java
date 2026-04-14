@@ -13,7 +13,4 @@ import com.edutech.progressive.entity.Patient;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
     Optional<Patient> findByPatientId(int patientId);
-
-    @Query("select p from Patient p order by p.fullName")
-    List<Patient> findAllPatientSortedByName();
 }
