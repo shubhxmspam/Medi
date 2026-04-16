@@ -14,4 +14,5 @@ public interface ClinicRepository extends JpaRepository<Clinic, Integer> {
     List<Clinic> findAllByLocation(String location);
     List<Clinic> findAllByDoctorId(int doctorId);
     void deleteByDoctorId(int doctorId);
+    Optional<Clinic> findByClinicName(String clinicName);
 }

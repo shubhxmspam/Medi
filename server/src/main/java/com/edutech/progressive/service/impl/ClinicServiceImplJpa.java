@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.edutech.progressive.entity.Clinic;
+import com.edutech.progressive.exception.ClinicAlreadyExistsException;
 import com.edutech.progressive.repository.ClinicRepository;
 import com.edutech.progressive.service.ClinicService;
 
@@ -34,6 +35,10 @@ public class ClinicServiceImplJpa implements ClinicService {
 
     @Override
     public Integer addClinic(Clinic clinic) throws Exception {
+        Optional<Clinic> c = clinicRepository.findByClinicName(clinic.getClinicName());
+        if(c.isPresent()){
+            throw new ClinicAlreadyExistsException("Clinic already exists with same email");
+        }
         clinicRepository.save(clinic);
         return clinic.getClinicId();
     }
