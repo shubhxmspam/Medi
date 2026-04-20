@@ -87,4 +87,12 @@ public class Doctor implements Comparable<Doctor> {
         return Integer.compare(this.getYearsOfExperience(), o.getYearsOfExperience());
     }
 
+    public Clinic getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
+    }
+
 }

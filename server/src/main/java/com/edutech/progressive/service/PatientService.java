@@ -1,27 +1,26 @@
 package com.edutech.progressive.service;
 
 import com.edutech.progressive.dto.PatientDTO;
-import com.edutech.progressive.entity.Patient;
 import java.util.List;
 
 
 public interface PatientService {
 
-    List<Patient> getAllPatients() throws Exception;
+    List<PatientDTO> getAllPatients() throws Exception;
 
-    Integer addPatient(Patient patient) throws Exception;
+    Integer addPatient(PatientDTO patientDTO) throws Exception;
 
-    List<Patient> getAllPatientSortedByName() throws Exception;
+    List<PatientDTO> getAllPatientSortedByName() throws Exception;
 
     default void emptyArrayList() {
     }
 
     //Do not implement these methods in PatientServiceImplArraylist.java class
-    default void updatePatient(Patient patient) throws Exception {}
+    default void updatePatient(PatientDTO patientDTO) throws Exception {}
 
     default void deletePatient(int patientId) throws Exception {}
 
-    default Patient getPatientById(int patientId) throws Exception {
+    default PatientDTO getPatientById(int patientId) throws Exception {
         return null;
     }
 
