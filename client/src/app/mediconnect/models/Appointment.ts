@@ -1,30 +1,28 @@
+
+import { Clinic } from './Clinic';
+import { Patient } from './Patient';
+
 export class Appointment {
-  appointmentId: number;
-  patientId: number;
-  clinicId: number;
-  appointmentDate: Date;
-  status: string;
-  purpose: string;
+    appointmentId: number;
+    patient: Patient;
+    clinic: Clinic;
+    appointmentDate: Date;
+    status: string;
+    purpose: string;
 
-  constructor(
-    appointmentId: number,
-    patientId: number,
-    clinicId: number,
-    appointmentDate: Date,
-    status: string,
-    purpose: string
-  ) {
-    this.appointmentId = appointmentId;
-    this.patientId = patientId;
-    this.clinicId = clinicId;
-    this.appointmentDate = appointmentDate;
-    this.status = status;
-    this.purpose = purpose;
-  }
-
-  logAttributes(): void {
-    Object.entries(this).forEach(([key, value]) => {
-      console.log(`${key}:`, value);
-    });
-  }
+    constructor(
+        appointmentId: number,
+        patient: Patient,
+        clinic: Clinic,
+        appointmentDate: Date,
+        status: string,
+        purpose: string
+    ) {
+        this.appointmentId = appointmentId;
+        this.patient = patient;
+        this.clinic = clinic;
+        this.appointmentDate = appointmentDate;
+        this.status = status;
+        this.purpose = purpose;
+    }
 }
