@@ -11,6 +11,7 @@ import { MediConnectService } from '../../services/mediconnect.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+
   doctorDetails?: Doctor;
   patientDetails?: Patient;
 
@@ -24,7 +25,7 @@ export class DashboardComponent implements OnInit {
   doctorId: number = 0;
   patientId: number = 0;
 
-  selectedClinicId: number | undefined;
+  selectedClinicId?: number;
   selectClinicAppointments: Appointment[] = [];
 
   errorMessage: string | null = null;
@@ -32,84 +33,122 @@ export class DashboardComponent implements OnInit {
 
   constructor(private mediconnectService: MediConnectService) {}
 
+  // ==============================
+  // ✅ INIT
+  // ==============================
   ngOnInit(): void {
     this.role = localStorage.getItem('role');
-    this.userId = Number(localStorage.getItem('user_id') || 0);
-    this.doctorId = Number(localStorage.getItem('doctor_id') || 0);
-    this.patientId = Number(localStorage.getItem('patient_id') || 0);
+    this.userId = Number(localStorage.getItem('user_id')) || 0;
+    this.doctorId = Number(localStorage.getItem('doctor_id')) || 0;
+    this.patientId = Number(localStorage.getItem('patient_id')) || 0;
 
-    if (this.doctorId > 0 && this.role === 'DOCTOR') {
+    if (this.role === 'DOCTOR' && this.doctorId > 0) {
       this.loadDoctorData();
     }
-    if (this.patientId > 0 && this.role !== 'DOCTOR') {
+
+    if (this.role !== 'DOCTOR' && this.patientId > 0) {
       this.loadPatientData();
     }
   }
 
+  // ==============================
+  // ✅ DOCTOR DASHBOARD
+  // ==============================
   loadDoctorData(): void {
     this.errorMessage = null;
 
     this.mediconnectService.getDoctorById(this.doctorId).subscribe({
-      next: (d: Doctor) => (this.doctorDetails = d),
-      error: () => (this.errorMessage = 'Failed to fetch doctor details'),
+      next: (d: Doctor) => this.doctorDetails = d,
+      error: () => this.errorMessage = 'Failed to fetch doctor details'
     });
 
     this.mediconnectService.getClinicsByDoctorId(this.doctorId).subscribe({
-      next: (c: Clinic[]) => (this.clinics = c),
-      error: () => (this.errorMessage = 'Failed to fetch clinics'),
+      next: (c: Clinic[]) => this.clinics = c,
+      error: () => this.errorMessage = 'Failed to fetch clinics'
     });
 
     this.mediconnectService.getAllPatients().subscribe({
-      next: (p: Patient[]) => (this.patients = p),
-      error: () => (this.errorMessage = 'Failed to fetch patients'),
+      next: (p: Patient[]) => this.patients = p,
+      error: () => this.errorMessage = 'Failed to fetch patients'
     });
   }
 
   loadAppointments(clinicId: number): void {
     this.errorMessage = null;
+
     this.mediconnectService.getAppointmentsByClinic(clinicId).subscribe({
       next: (a: Appointment[]) => {
-        this.selectClinicAppointments = a;
         this.appointments = a;
+        this.selectClinicAppointments = a;
       },
-      error: () => (this.errorMessage = 'Failed to fetch appointments'),
+      error: () => this.errorMessage = 'Failed to fetch appointments'
     });
   }
 
-  // ✅ Needed by template
   onClinicSelect(clinic: Clinic): void {
     this.selectedClinicId = clinic.clinicId;
     this.loadAppointments(this.selectedClinicId);
   }
 
-  // ✅ Stubs to satisfy template buttons if present
-  navigateToEditDoctor(): void { /* route or no-op for now */ }
-  navigateToEditClinic(id: number): void { /* route or no-op for now */ }
-
+  // ==============================
+  // ✅ PATIENT DASHBOARD (DAY‑24)
+  // ==============================
   loadPatientData(): void {
     this.errorMessage = null;
 
     this.mediconnectService.getPatientById(this.patientId).subscribe({
-      next: (p: Patient) => (this.patientDetails = p),
+      next: (p: Patient) => this.patientDetails = p,
       error: () => {
         this.patientDetails = undefined;
         this.errorMessage = 'Failed to fetch patient details';
-      },
+      }
     });
 
     this.mediconnectService.getAllClinics().subscribe({
-      next: (c: Clinic[]) => (this.clinics = c),
-      error: () => (this.errorMessage = 'Failed to fetch clinics'),
+      next: (c: Clinic[]) => this.clinics = c,
+      error: () => this.errorMessage = 'Failed to fetch clinics'
     });
 
     this.mediconnectService.getAllDoctors().subscribe({
-      next: (d: Doctor[]) => (this.doctors = d),
-      error: () => (this.errorMessage = 'Failed to fetch doctors'),
+      next: (d: Doctor[]) => this.doctors = d,
+      error: () => this.errorMessage = 'Failed to fetch doctors'
     });
 
     this.mediconnectService.getAppointmentsByPatient(this.patientId).subscribe({
-      next: (a: Appointment[]) => { this.appointments = a; },
-      error: () => (this.errorMessage = 'Failed to fetch appointments'),
+      next: (a: Appointment[]) => this.appointments = a,
+      error: () => {
+        this.appointments = [];
+        this.errorMessage = 'Failed to fetch appointments';
+      }
     });
   }
+
+  // ==============================
+  // ✅ DELETE PATIENT (REQUIRED FOR DAY‑24)
+  // ==============================
+  deletePatient(): void {
+    this.errorMessage = null;
+
+    if (!this.patientId) {
+      this.errorMessage = 'Invalid patient id';
+      return;
+    }
+
+    this.mediconnectService.deletePatient(this.patientId).subscribe({
+      next: () => {
+        this.successMessage = 'Patient deleted successfully';
+        this.patientDetails = undefined;
+        this.appointments = [];
+      },
+      error: () => {
+        this.errorMessage = 'Failed to delete patient';
+      }
+    });
+  }
+
+  // ==============================
+  // ✅ TEMPLATE SAFE STUBS
+  // ==============================
+  navigateToEditDoctor(): void {}
+  navigateToEditClinic(id: number): void {}
 }
