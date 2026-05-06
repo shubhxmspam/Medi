@@ -1,7 +1,6 @@
 package com.edutech.progressive.controller;
 
 import com.edutech.progressive.dto.PatientDTO;
-import com.edutech.progressive.entity.Patient;
 import com.edutech.progressive.service.PatientService;
 
 import org.springframework.http.HttpStatus;

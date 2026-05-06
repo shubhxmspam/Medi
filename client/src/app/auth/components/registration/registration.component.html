@@ -1,142 +1,158 @@
-<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
- 
-  <!-- Username -->
-<div class="mb-3">
-<label class="form-label" for="username">Username</label>
-<input id="username" type="text" class="form-control" formControlName="username" />
- 
-    <div class="text-danger"
-         *ngIf="registrationForm.get('username')?.touched && registrationForm.get('username')?.invalid">
- 
-      <div *ngIf="registrationForm.get('username')?.errors?.['required']">
-        Username is required
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <h2 class="mb-4">Register</h2>
+
+      <div class="alert alert-success" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group mb-3">
+          <label for="fullName">Full Name:</label>
+          <input
+            type="text"
+            id="fullName"
+            class="form-control"
+            formControlName="fullName"
+          />
+
+          <div class="text-danger" *ngIf="registrationForm.get('fullName')?.touched && registrationForm.get('fullName')?.invalid">
+            Full name is required.
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+          />
+
+          <div class="text-danger" *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid">
+            Enter a valid email address.
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            formControlName="username"
+          />
+
+          <div class="text-danger" *ngIf="registrationForm.get('username')?.touched && registrationForm.get('username')?.invalid">
+            Username is required and should contain only letters and numbers.
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            formControlName="password"
+          />
+
+          <div class="text-danger" *ngIf="registrationForm.get('password')?.touched && registrationForm.get('password')?.invalid">
+            Password must be at least 8 characters and contain one uppercase letter and one number.
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="contactNumber">Contact Number:</label>
+          <input
+            type="text"
+            id="contactNumber"
+            class="form-control"
+            formControlName="contactNumber"
+          />
+
+          <div class="text-danger" *ngIf="registrationForm.get('contactNumber')?.touched && registrationForm.get('contactNumber')?.invalid">
+            Contact number is required.
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="role">Role:</label>
+          <select
+            id="role"
+            class="form-control"
+            formControlName="role"
+            (change)="onRoleChange($event)"
+          >
+            <option value="">Select Role</option>
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+            <option value="admin">Admin</option>
+          </select>
+
+          <div class="text-danger" *ngIf="registrationForm.get('role')?.touched && registrationForm.get('role')?.invalid">
+            Role is required.
+          </div>
+        </div>
+
+        <div *ngIf="selectedRole === 'doctor'">
+          <div class="form-group mb-3">
+            <label for="specialty">Specialty:</label>
+            <input
+              type="text"
+              id="specialty"
+              class="form-control"
+              formControlName="specialty"
+            />
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="yearsOfExperience">Years of Experience:</label>
+            <input
+              type="number"
+              id="yearsOfExperience"
+              class="form-control"
+              formControlName="yearsOfExperience"
+            />
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="dateOfBirth">Date of Birth:</label>
+          <input
+            type="date"
+            id="dateOfBirth"
+            class="form-control"
+            formControlName="dateOfBirth"
+          />
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="address">Address:</label>
+          <textarea
+            id="address"
+            class="form-control"
+            formControlName="address"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success me-2">
+          Register
+        </button>
+
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">
+          Reset
+        </button>
+
+      </form>
+    </div>
+  </div>
 </div>
- 
-      <div *ngIf="registrationForm.get('username')?.errors?.['pattern']">
-        Username must contain only letters and numbers
-</div>
-</div>
-</div>
- 
-  <!-- Password -->
-<div class="mb-3">
-<label class="form-label" for="password">Password</label>
-<input id="password" type="password" class="form-control" formControlName="password" />
- 
-    <div class="text-danger"
-         *ngIf="registrationForm.get('password')?.touched && registrationForm.get('password')?.invalid">
- 
-      <div *ngIf="registrationForm.get('password')?.errors?.['required']">
-        Password is required
-</div>
- 
-      <div *ngIf="registrationForm.get('password')?.errors?.['pattern']">
-        Password must contain at least 8 characters, one uppercase letter and one number
-</div>
-</div>
-</div>
- 
-  <!-- Role -->
-<div class="mb-3">
-<label class="form-label" for="role">Role</label>
-<select id="role" class="form-select" formControlName="role" (change)="onRoleChange($event)">
-<option value="">Select Role</option>
-<option value="DOCTOR">DOCTOR</option>
-<option value="PATIENT">PATIENT</option>
-</select>
- 
-    <div class="text-danger"
-         *ngIf="registrationForm.get('role')?.touched && registrationForm.get('role')?.invalid">
- 
-      <div *ngIf="registrationForm.get('role')?.errors?.['required']">
-        Role is required
-</div>
-</div>
-</div>
- 
-  <!-- Full Name -->
-<div class="mb-3">
-<label class="form-label" for="fullName">Full Name</label>
-<input id="fullName" type="text" class="form-control" formControlName="fullName" />
- 
-    <div class="text-danger"
-         *ngIf="registrationForm.get('fullName')?.touched && registrationForm.get('fullName')?.invalid">
- 
-      <div *ngIf="registrationForm.get('fullName')?.errors?.['required']">
-        Full name is required
-</div>
-</div>
-</div>
- 
-  <!-- Contact Number -->
-<div class="mb-3">
-<label class="form-label" for="contactNumber">Contact Number</label>
-<input id="contactNumber" type="text" class="form-control" formControlName="contactNumber" />
- 
-    <div class="text-danger"
-         *ngIf="registrationForm.get('contactNumber')?.touched && registrationForm.get('contactNumber')?.invalid">
- 
-      <div *ngIf="registrationForm.get('contactNumber')?.errors?.['required']">
-        Contact number is required
-</div>
-</div>
-</div>
- 
-  <!-- Email -->
-<div class="mb-3">
-<label class="form-label" for="email">Email</label>
-<input id="email" type="email" class="form-control" formControlName="email" />
- 
-    <div class="text-danger"
-         *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid">
- 
-      <div *ngIf="registrationForm.get('email')?.errors?.['required']">
-        Email is required
-</div>
- 
-      <div *ngIf="registrationForm.get('email')?.errors?.['email']">
-        Invalid email
-</div>
-</div>
-</div>
- 
-  <!-- DOCTOR additional fields (no validators required on Day 21) -->
-<div *ngIf="selectedRole === 'DOCTOR'">
-<div class="mb-3">
-<label class="form-label">Specialty</label>
-<input type="text" class="form-control" />
-</div>
- 
-    <div class="mb-3">
-<label class="form-label">Years of Experience</label>
-<input type="number" class="form-control" />
-</div>
-</div>
- 
-  <!-- PATIENT additional fields (no validators required on Day 21) -->
-<div *ngIf="selectedRole === 'PATIENT'">
-<div class="mb-3">
-<label class="form-label">Date of Birth</label>
-<input type="date" class="form-control" />
-</div>
- 
-    <div class="mb-3">
-<label class="form-label">Address</label>
-<input type="text" class="form-control" />
-</div>
-</div>
- 
-  <!-- Buttons -->
-<button class="btn btn-primary" type="submit" [disabled]="registrationForm.invalid">
-    Register
-</button>
- 
-  <button class="btn btn-secondary ms-2" type="button" (click)="resetForm()">
-    Reset
-</button>
- 
-  <!-- Messages -->
-<div class="text-success mt-2" *ngIf="successMessage">{{ successMessage }}</div>
-<div class="text-danger mt-2" *ngIf="errorMessage">{{ errorMessage }}</div>
- 
-</form>

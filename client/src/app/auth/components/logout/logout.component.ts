@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-logout',
@@ -8,17 +7,17 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./logout.component.scss']
 })
 export class LogoutComponent {
-
-  constructor(
-    private authService: AuthService, // Handles logout logic
-    private router: Router             // Used for navigation
-  ) {}
+  constructor(private router: Router) {}
 
   logout(): void {
-    // Call AuthService to clear authentication data
-    this.authService.logout();
-
-    // Redirect user to login/auth page
-    this.router.navigate(['/auth/login']);
+    try {
+      localStorage.removeItem('token');
+      localStorage.removeItem('role');
+      localStorage.removeItem('user_id');
+      localStorage.removeItem('doctor_id');
+      localStorage.removeItem('patient_id');
+    } finally {
+      this.router.navigateByUrl('/auth');
+    }
   }
 }
