@@ -1,5 +1,4 @@
-export const environment = {
-  // production: false,
-	apiUrl: window.location.href.replace(/5000\/.*$/, "3000")
-};
 
+export const environment = {
+  apiUrl: window.location.origin + "/project/3137/proxy/3000"
+};

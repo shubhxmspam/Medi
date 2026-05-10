@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
  
 @Component({
   selector: 'app-registration',
@@ -13,7 +15,7 @@ export class RegistrationComponent implements OnInit {
   errorMessage: string | null = null;
   selectedRole: string | null = null;
  
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {}
  
   ngOnInit(): void {
     this.registrationForm = this.formBuilder.group({
@@ -27,12 +29,12 @@ export class RegistrationComponent implements OnInit {
       ]],
       role: ['', Validators.required],
       fullName: ['', Validators.required],
-      contactNumber: ['', Validators.required],
+      contactNumber: ['', Validators.required, Validators.pattern('^[0-9]{10}$')],
       email: ['', [Validators.required, Validators.email]],
       specialty: [''],
-    yearsOfExperience: [''],
-    dateOfBirth: [''],
-    address: [''],
+      yearsOfExperience: [''],
+      dateOfBirth: [''],
+      address: [''],
     });
   }
 
@@ -48,8 +50,14 @@ export class RegistrationComponent implements OnInit {
       return;
     }
  
-    this.successMessage = 'Registration successful!';
-    this.errorMessage = null;
+    this.authService.createUser(this.registrationForm.value).subscribe(()=>{
+      this.successMessage = 'Registration successful!';
+      this.errorMessage = null;
+      this.resetForm();
+      setTimeout(() => {
+        this.router.navigate(['/']);
+      }, 2000);
+    })
   }
  
   resetForm(): void {

@@ -16,89 +16,65 @@
 
         <div class="form-group mb-3">
           <label for="fullName">Full Name:</label>
-          <input
-            type="text"
-            id="fullName"
-            class="form-control"
-            formControlName="fullName"
-          />
+          <input type="text" id="fullName" class="form-control" formControlName="fullName" />
 
-          <div class="text-danger" *ngIf="registrationForm.get('fullName')?.touched && registrationForm.get('fullName')?.invalid">
+          <div class="text-danger"
+            *ngIf="registrationForm.get('fullName')?.touched && registrationForm.get('fullName')?.invalid">
             Full name is required.
           </div>
         </div>
 
         <div class="form-group mb-3">
           <label for="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            class="form-control"
-            formControlName="email"
-          />
+          <input type="email" id="email" class="form-control" formControlName="email" />
 
-          <div class="text-danger" *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid">
+          <div class="text-danger"
+            *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid">
             Enter a valid email address.
           </div>
         </div>
 
         <div class="form-group mb-3">
           <label for="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            class="form-control"
-            formControlName="username"
-          />
+          <input type="text" id="username" class="form-control" formControlName="username" />
 
-          <div class="text-danger" *ngIf="registrationForm.get('username')?.touched && registrationForm.get('username')?.invalid">
+          <div class="text-danger"
+            *ngIf="registrationForm.get('username')?.touched && registrationForm.get('username')?.invalid">
             Username is required and should contain only letters and numbers.
           </div>
         </div>
 
         <div class="form-group mb-3">
           <label for="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            class="form-control"
-            formControlName="password"
-          />
+          <input type="password" id="password" class="form-control" formControlName="password" />
 
-          <div class="text-danger" *ngIf="registrationForm.get('password')?.touched && registrationForm.get('password')?.invalid">
+          <div class="text-danger"
+            *ngIf="registrationForm.get('password')?.touched && registrationForm.get('password')?.invalid">
             Password must be at least 8 characters and contain one uppercase letter and one number.
           </div>
         </div>
 
         <div class="form-group mb-3">
           <label for="contactNumber">Contact Number:</label>
-          <input
-            type="text"
-            id="contactNumber"
-            class="form-control"
-            formControlName="contactNumber"
-          />
+          <input type="text" id="contactNumber" maxlength="10" class="form-control" formControlName="contactNumber" />
 
-          <div class="text-danger" *ngIf="registrationForm.get('contactNumber')?.touched && registrationForm.get('contactNumber')?.invalid">
-            Contact number is required.
+          <div class="text-danger"
+            *ngIf="registrationForm.get('contactNumber')?.touched && registrationForm.get('contactNumber')?.invalid">
+            Contact Number is required and must be a 10-digit number.
           </div>
         </div>
 
         <div class="form-group mb-3">
           <label for="role">Role:</label>
-          <select
-            id="role"
-            class="form-control"
-            formControlName="role"
-            (change)="onRoleChange($event)"
-          >
+          <select id="role" class="form-control" formControlName="role" (change)="onRoleChange($event)">
             <option value="">Select Role</option>
             <option value="patient">Patient</option>
             <option value="doctor">Doctor</option>
-            <option value="admin">Admin</option>
+            <!-- <option value="admin">Admin</option> -->
           </select>
 
-          <div class="text-danger" *ngIf="registrationForm.get('role')?.touched && registrationForm.get('role')?.invalid">
+          <div class="text-danger"
+            *ngIf="registrationForm.get('role')?.touched && registrationForm.get('role')?.invalid">
             Role is required.
           </div>
         </div>
@@ -106,42 +82,23 @@
         <div *ngIf="selectedRole === 'doctor'">
           <div class="form-group mb-3">
             <label for="specialty">Specialty:</label>
-            <input
-              type="text"
-              id="specialty"
-              class="form-control"
-              formControlName="specialty"
-            />
+            <input type="text" id="specialty" class="form-control" formControlName="specialty" />
           </div>
 
           <div class="form-group mb-3">
             <label for="yearsOfExperience">Years of Experience:</label>
-            <input
-              type="number"
-              id="yearsOfExperience"
-              class="form-control"
-              formControlName="yearsOfExperience"
-            />
+            <input type="number" id="yearsOfExperience" class="form-control" formControlName="yearsOfExperience" />
           </div>
         </div>
 
         <div class="form-group mb-3">
           <label for="dateOfBirth">Date of Birth:</label>
-          <input
-            type="date"
-            id="dateOfBirth"
-            class="form-control"
-            formControlName="dateOfBirth"
-          />
+          <input type="date" id="dateOfBirth" class="form-control" formControlName="dateOfBirth" />
         </div>
 
         <div class="form-group mb-3">
           <label for="address">Address:</label>
-          <textarea
-            id="address"
-            class="form-control"
-            formControlName="address"
-          ></textarea>
+          <textarea id="address" class="form-control" formControlName="address"></textarea>
         </div>
 
         <button type="submit" class="btn btn-success me-2">
@@ -151,6 +108,12 @@
         <button type="button" class="btn btn-secondary" (click)="resetForm()">
           Reset
         </button>
+
+        <div class="text-center mt-3">
+          <a routerLink="/auth/login" class="login-link">
+            Already have an account? Login
+          </a>
+        </div>
 
       </form>
     </div>

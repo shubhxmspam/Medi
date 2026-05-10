@@ -50,7 +50,7 @@ public class UserLoginServiceImpl implements UserDetailsService {
         }
  
    
-        if (patientRepository.findByEmail(email) != null || doctorRepository.findByEmail(email) != null) {
+        if (patientRepository.findByEmail(email).isPresent() || doctorRepository.findByEmail(email).isPresent()) {
             throw new Exception("Email '" + email + "' already exists.");
         }
  

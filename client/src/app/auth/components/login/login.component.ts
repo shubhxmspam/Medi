@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
         if (patientId) localStorage.setItem('patient_id', String(patientId));
         this.errorMessage = null;
         this.successMessage = 'Login successful';
+        this.router.navigate(['/mediconnect']);
       },
       error: () => {
         this.successMessage = null;

@@ -20,7 +20,7 @@
 
         <div class="form-group">
             <label for="contactNumber">Contact Number:</label>
-            <input type="text" id="contactNumber" formControlName="contactNumber" />
+            <input type="text" maxlength="10" id="contactNumber" formControlName="contactNumber" />
             <div class="error"
                 *ngIf="doctorForm.get('contactNumber')?.invalid && doctorForm.get('contactNumber')?.touched">
                 Contact Number is required and must be a 10-digit number.

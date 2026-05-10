@@ -1,0 +1,43 @@
+.clinic-card {
+  border-radius: 6px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.form-label {
+  font-size: 14px;
+  color: #333;
+}
+
+.form-control {
+  height: 38px;
+  font-size: 14px;
+  border-radius: 3px;
+}
+
+.text-danger {
+  color: #e35d6a !important;
+  font-size: 13px;
+}
+
+h2 {
+  font-size: 26px;
+  color: #333;
+}
+
+.btn-secondary {
+  background-color: #bcbcbc;
+  border-color: #bcbcbc;
+  color: white;
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  background-color: #a9a9a9;
+  border-color: #a9a9a9;
+}
+
+.alert {
+  font-size: 14px;
+  padding: 8px 12px;
+}

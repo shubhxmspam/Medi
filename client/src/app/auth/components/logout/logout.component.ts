@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./logout.component.scss']
 })
 export class LogoutComponent {
-  constructor(private router: Router) {}
-
+  constructor(private router: Router) { }
+  showToast = false;
   logout(): void {
     try {
       localStorage.removeItem('token');
@@ -17,7 +17,15 @@ export class LogoutComponent {
       localStorage.removeItem('doctor_id');
       localStorage.removeItem('patient_id');
     } finally {
-      this.router.navigateByUrl('/auth');
+      // this.router.navigateByUrl('/');
+
+      this.showToast = true;
+
+      setTimeout(() => {
+        this.showToast = false;
+        this.router.navigateByUrl('/');
+      }, 1000);
+
     }
   }
 }

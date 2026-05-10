@@ -68,9 +68,33 @@
                         <td>{{ appointment.patient.fullName }}</td>
                         <td>{{ appointment.appointmentDate | date }}</td>
                         <td>{{ appointment.status }}</td>
-                        <td>
-                            <button (click)="cancelAppointment(appointment)" class="btn-delete" [disabled]="appointment.status === 'Cancel'">Cancel</button>
+
+                        <td class="actions-cell">
+
+                            <!-- Accept Button -->
+                            <button (click)="acceptAppointment(appointment)" class="btn-edit"
+                                [disabled]="appointment.status === 'Accepted' || appointment.status === 'Cancelled'"
+                                [ngClass]="{
+      'btn-success': appointment.status === 'Pending',
+      'btn-disabled': appointment.status === 'Accepted' || appointment.status === 'Cancelled'
+    }">
+                                Accept
+                            </button>
+
+                            <!-- Cancel Button -->
+                            <button (click)="cancelAppointment(appointment)" class="btn-delete"
+                                [disabled]="appointment.status === 'Cancelled'" [ngClass]="{
+      'btn-disabled': appointment.status === 'Cancelled'
+    }">
+                                Cancel
+                            </button>
+
                         </td>
+                        <!-- <td>
+                            <button (click)="cancelAppointment(appointment)" class="btn-delete" [disabled]="appointment.status === 'Cancel'">Cancel</button>
+                            <button (click)="acceptAppointment(appointment)" [ngClass]="{'btn-success': appointment.status !== 'Accepted', 'btn-disabled': appointment.status === 'Accepted'}" 
+                                      [disabled]="appointment.status === 'Accepted'">Cancel</button>
+                        </td> -->
                     </tr>
                 </tbody>
             </table>
