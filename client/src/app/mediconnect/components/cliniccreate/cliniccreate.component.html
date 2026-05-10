@@ -1,0 +1,124 @@
+<div class="container mt-4 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+
+      <div class="card shadow-sm border-0 clinic-card">
+        <div class="card-body p-4">
+
+          <h2 class="text-center mb-4 fw-bold">Create Clinic</h2>
+
+          <form [formGroup]="clinicForm" (ngSubmit)="onSubmit()">
+
+            <!-- Doctor Name -->
+            <div class="mb-3">
+              <label for="doctor" class="form-label fw-semibold">Doctor Name:</label>
+              <input
+                id="doctor"
+                type="text"
+                class="form-control"
+                formControlName="doctor"
+                readonly
+              />
+            </div>
+
+            <!-- Clinic Name -->
+            <div class="mb-3">
+              <label for="clinicName" class="form-label fw-semibold">Clinic Name:</label>
+              <input
+                id="clinicName"
+                type="text"
+                class="form-control"
+                formControlName="clinicName"
+              />
+
+              <div class="text-danger small mt-1" *ngIf="clinicName?.touched && clinicName?.invalid">
+                Clinic Name is required and must have at least 2 characters.
+              </div>
+            </div>
+
+            <!-- Location -->
+            <div class="mb-3">
+              <label for="location" class="form-label fw-semibold">Location:</label>
+              <input
+                id="location"
+                type="text"
+                class="form-control"
+                formControlName="location"
+              />
+
+              <div class="text-danger small mt-1" *ngIf="location?.touched && location?.invalid">
+                Location is required.
+              </div>
+            </div>
+
+            <!-- Contact Number -->
+            <div class="mb-3">
+              <label for="contactNumber" class="form-label fw-semibold">Contact Number:</label>
+              <input
+                id="contactNumber"
+                type="text"
+                class="form-control"
+                formControlName="contactNumber"
+                maxlength="10"
+              />
+
+              <div class="text-danger small mt-1" *ngIf="contactNumber?.touched && contactNumber?.invalid">
+                Contact Number is required and must be a 10-digit number.
+              </div>
+            </div>
+
+            <!-- Established Year -->
+            <div class="mb-3">
+              <label for="establishedYear" class="form-label fw-semibold">Established Year:</label>
+              <input
+                id="establishedYear"
+                type="number"
+                class="form-control"
+                formControlName="establishedYear"
+              />
+
+              <div class="text-danger small mt-1" *ngIf="establishedYear?.touched && establishedYear?.invalid">
+                Established Year is required and must be a valid year.
+              </div>
+            </div>
+
+            <!-- Error Message -->
+            <div class="alert alert-danger mt-3" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </div>
+
+            <!-- Success Message -->
+            <div class="alert alert-success mt-3" *ngIf="successMessage">
+              {{ successMessage }}
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center mt-4">
+              <button
+                class="btn btn-secondary px-4"
+                type="submit"
+                [disabled]="clinicForm.invalid"
+              >
+                Submit
+              </button>
+            </div>
+
+            <!-- Dashboard Button -->
+            <div class="text-center mt-4">
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm"
+                routerLink="/mediconnect"
+              >
+                Dashboard
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

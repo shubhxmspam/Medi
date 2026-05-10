@@ -1,0 +1,84 @@
+
+
+<app-navbar></app-navbar>
+
+<div class="container py-3">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h4 class="mb-3">Book Appointment</h4>
+      <p class="subtitle">Please provide the details for your visit</p>
+
+
+      <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" class="appointment-form">
+
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label" for="patientId">Patient ID</label>
+            <input class="form-control" type="number" id="patientId" formControlName="patientId"
+              placeholder="Enter Patient ID" />
+          </div>
+
+
+          <div class="col-md-8">
+
+            <label class="form-label" for="clinic">Select Clinic</label>
+            <select class="form-select" formControlName="clinic" id="clinic">
+              <option value="" disabled selected>Select a Clinic</option>
+              <option *ngFor="let clinic of clinics" [ngValue]="clinic">
+                {{ clinic.clinicName }}
+              </option>
+            </select>
+          </div>
+
+
+          <div class="col-md-4"
+            [class.has-error]="appointmentForm.controls['appointmentDate'].invalid && appointmentForm.controls['appointmentDate'].touched">
+            <label class="form-label" for="appointmentDate">Appointment Date</label>
+            <input class="form-control" type="date" id="appointmentDate" formControlName="appointmentDate" />
+            <div class="error"
+              *ngIf="appointmentForm.controls['appointmentDate'].invalid && appointmentForm.controls['appointmentDate'].touched">
+              <small>Appointment date is required.</small>
+            </div>
+          </div>
+
+
+          <!-- <div class="col-md-4"
+            [class.has-error]="appointmentForm.controls['status'].invalid && appointmentForm.controls['status'].touched">
+            <label class="form-label" for="status">Status</label>
+            <input class="form-control" type="text" id="status" formControlName="status" placeholder="E.g., Pending" />
+
+            <div class="error"
+              *ngIf="appointmentForm.controls['status'].invalid && appointmentForm.controls['status'].touched">
+              <small>Status is required.</small>
+            </div>
+          </div> -->
+        </div>
+
+
+        <div class="col-md-12"
+          [class.has-error]="appointmentForm.controls['purpose'].invalid && appointmentForm.controls['purpose'].touched">
+
+          <label class="form-label" for="purpose">Purpose of Visit</label>
+          <textarea rows="3" class="form-control" id="purpose" formControlName="purpose"
+            placeholder="Briefly describe the reason for your appointment"></textarea>
+          <div class="error"
+            *ngIf="appointmentForm.controls['purpose'].invalid && appointmentForm.controls['purpose'].touched">
+            <small>Purpose must be at least 5 characters long.</small>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-3">
+          <button type="submit" class="btn btn-primary" [disabled]="appointmentForm.invalid">Submit Request</button>
+          <a routerLink="/mediconnect" class="btn btn-outline-secondary">Return to Dashboard</a>
+        </div>
+      </form>
+
+      <div *ngIf="successMessage" class="alert alert-success mt-3">
+        <p>{{ successMessage }}</p>
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        <p>{{ errorMessage }}</p>
+      </div>
+    </div>
+  </div>
+</div>
